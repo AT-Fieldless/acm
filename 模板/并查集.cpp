@@ -1,21 +1,56 @@
-int pre[550100];
-int find(int x)
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+#define MAX_N 100000 * 2 + 16
+int parent[MAX_N];
+int height[MAX_N];
+
+void init(const int& n)
 {
-    int r = x;
-    while (pre[r]!= r)
-        r=pre[r];
-    int i = x,j;
-    while(i != r)
+    for (int i = 0; i < n; ++i)
     {
-        j = pre[i]; // 在改变上级之前用临时变量  j 记录下他的值
-        pre[i] = r ; //把上级改为根节点
-        i = j;
+        parent[i] = i;
+        height[i] = 0;
     }
-    return r ;
 }
-void join(int x,int y)
+
+int find(const int& x)
 {
-    int fx=find(x),fy=find(y);
-    if(fx!=fy)
-        pre[fx]=fy;
+    if (parent[x] == x)
+    {
+        return x;
+    }
+    else
+    {
+        return parent[x] = find(parent[x]);
+    }
+}
+
+void unite(int x, int y)
+{
+    x = find(x);
+    y = find(y);
+    if (x == y)
+    {
+        return;
+    }
+    
+    if (height[x] < height[y])
+    {
+        parent[x] = y;
+    }
+    else
+    {
+        parent[y] = x;
+        if (height[x] == height[y])
+        {
+            ++height[x];
+        }
+    }
+}
+
+bool same(const int& x, const int& y)
+{
+    return find(x) == find(y);
 }
