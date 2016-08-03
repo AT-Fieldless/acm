@@ -17,11 +17,11 @@ bool contain(string a,string b)     //a是否在b中出现
     if (al>bl) {
         return false;
     }
-    ull t = 1;      //计算B的a1次方
+    ull t = 1;      //计算B的al次方
     for (int i = 0; i<al; i++) {
         t *= m;
     }
-    //计算a和b长度为a1的前缀对应的哈希值
+    //计算a和b长度为al的前缀对应的哈希值
     ull ah = 0,bh = 0;
     for (int i = 0; i<al; i++) {
         ah = ah*m+a[i];
