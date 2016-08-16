@@ -1,40 +1,20 @@
 //
 //  main.cpp
-//  poj 3641
+//  uva 10870
 //
-//  Created by apple on 16/7/20.
+//  Created by apple on 16/8/16.
 //  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
 //
 
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 using namespace std;
-typedef long long ll;
-
-ll mod_pow(ll x,ll n,ll mod){
-    ll res = 1;
-    while (n>0) {
-        if (n&1) {
-            res = res*x%mod;
-        }
-        x = x*x%mod;
-        n >>=1;
-    }
-    return res;
-}
-bool is_prime(ll x){
-    for (ll i = 2; i*i<=x; i++) {
-        if (x%i == 0) {
-            return 0;
-        }
-    }
-    return 1;
-}
-
+const int maxn = 100;
+int d,n,m;
 struct matrix{
     long long a[maxn][maxn];
 };
-//矩阵乘法
 matrix mul(matrix a,matrix b){
     matrix c;
     for (int i = 0; i<=d; i++) {
@@ -51,17 +31,15 @@ matrix mul(matrix a,matrix b){
         }
     }
     //for (int i = 0; i<=d; i++) {
-    //  for (int j = 0; j<=d; j++) {
-    //cout<<c.a[i][j]<<' ';
-    //}
-    //cout<<endl;
+      //  for (int j = 0; j<=d; j++) {
+            //cout<<c.a[i][j]<<' ';
+        //}
+        //cout<<endl;
     //}
     return c;
 }
-//矩阵快速幂
 matrix mod_pow(matrix x,int k){
     matrix c;
-    //单位矩阵
     for (int i = 0; i<d; i++) {
         for (int j = 0; j<d; j++) {
             c.a[i][j] = (i == j);
@@ -77,14 +55,38 @@ matrix mod_pow(matrix x,int k){
     return c;
 }
 int main() {
-    ll p,a;
-    while (scanf("%lld%lld",&p,&a)&&(p||a)) {
-        if (mod_pow(a,p,p) == a&&!is_prime(p)) {
-            cout<<"yes"<<endl;
+    while (~scanf("%d%d%d",&d,&n,&m)&&(d&&n&&m)) {
+        matrix x,y;
+        for (int i = 0; i<d; i++) {
+            scanf("%lld",&x.a[0][i]);
         }
-        else{
-            cout<<"no"<<endl;
+        for (int i = 1; i<d; i++) {
+            for (int j = 0; j<d; j++) {
+                x.a[i][j] = (i == (j+1));
+            }
         }
+        for (int i = 0; i<d; i++) {
+            scanf("%lld",&y.a[d-i-1][0]);
+        }
+        int temp = 0;
+        x = mod_pow(x, n-d);
+        y = mul(x, y);
+        printf("%lld\n",y.a[0][0]);
     }
     return 0;
 }
+/*
+1 1 100 
+2
+1
+ 
+2 10 100 
+1 1
+1 1
+ 
+3 2147483647 12345 
+12345678 0 12345 
+1 2 3
+ 
+0 0 0
+*/
