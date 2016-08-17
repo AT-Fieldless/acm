@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  hdu 5833
-//
-//  Created by apple on 16/8/16.
-//  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
-//
-
 #include <iostream>
 #include <cmath>
 #include <cstdio>
@@ -38,12 +30,13 @@ void gauss_elimination(Matrix A,int n){
                 A[k][j] -= A[k][i]/A[i][i]*A[i][j];
             }
         }
-        for (i = n-1; i>=0; i--) {
-            for (j = i+1; j<n; j++) {
-                A[i][n] -= A[j][n]*A[i][j];
-            }
-            A[i][n] /= A[i][i];
+    }
+    //回代过程
+    for (i = n-1; i>=0; i--) {
+        for (j = i+1; j<n; j++) {
+            A[i][n] -= A[j][n]*A[i][j];
         }
+        A[i][n] /= A[i][i];
     }
 }
 int main(int argc, const char * argv[]) {
