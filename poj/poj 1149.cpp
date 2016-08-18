@@ -1,3 +1,11 @@
+//
+//  main.cpp
+//  poj 1149
+//
+//  Created by apple on 16/8/18.
+//  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
+//
+
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -5,6 +13,9 @@
 using namespace std;
 const int maxn = 1e5+10;
 const int INF = 0x3f3f3f3f;
+int num[maxn];
+int vis[maxn];
+int sum[maxn];
 //用于表示变得结构体（终点、容量、反向边）
 struct edge{int to,cap,rev;};
 
@@ -56,26 +67,39 @@ void init(int n){
 }
 int main(int argc, const char * argv[]) {
     int n,m;
-    while (cin>>n>>m) {
-        int s = n+m,t = s+1;
+    while (cin>>m>>n) {
+        int s = 0,t = n+1;
         init(t+1);
-        for (int i = 0; i<n; i++) {
-            add_edge(s, i, 1);
+        for (int i = 1; i<=m; i++) {
+            cin>>num[i];
+            vis[i] = -1;
         }
-        for (int i = 0; i<m; i++) {
-            add_edge(n+i, t, 1);
+        memset(sum, 0, sizeof(sum));
+        for (int i = 1; i<=n; i++) {
+            int a,b;
+            cin>>a;
+            for (int j = 0; j<a; j++) {
+                int k;
+                cin>>k;
+                if (vis[k] == -1) {
+                    vis[k] = i;
+                    sum[i] += num[k];
+                }
+                else{
+                    add_edge(vis[k], i, INF);
+                    vis[k] = i;
+                }
+            }
+            cin>>b;
+            add_edge(i, t, b);
         }
-        for (int i = 0; i<n; i++) {
-            int sum;
-            scanf("%d",&sum);
-            for (int j = 0; j<sum; j++) {
-                int x;
-                scanf("%d",&x);
-                x--;
-                add_edge(i, n+x, 1);
+        for (int i = 1; i<n; i++) {
+            if (sum[i]) {
+                add_edge(s, i, sum[i]);
             }
         }
         cout<<max_flow(s,t)<<endl;
     }
     return 0;
 }
+
