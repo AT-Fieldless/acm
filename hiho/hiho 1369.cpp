@@ -1,3 +1,11 @@
+//
+//  main.cpp
+//  hiho 1369
+//
+//  Created by apple on 16/9/11.
+//  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
+//
+
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -5,6 +13,7 @@
 using namespace std;
 const int maxn = 1e5+10;
 const int INF = 0x3f3f3f3f;
+//复杂度O(F|E|)
 //用于表示变得结构体（终点、容量、反向边）
 struct edge{int to,cap,rev;};
 
@@ -57,23 +66,12 @@ void init(int n){
 int main(int argc, const char * argv[]) {
     int n,m;
     while (cin>>n>>m) {
-        int s = n+m,t = s+1;
+        int s = 1,t = n;
         init(t+1);
-        for (int i = 0; i<n; i++) {
-            add_edge(s, i, 1);
-        }
         for (int i = 0; i<m; i++) {
-            add_edge(n+i, t, 1);
-        }
-        for (int i = 0; i<n; i++) {
-            int sum;
-            scanf("%d",&sum);
-            for (int j = 0; j<sum; j++) {
-                int x;
-                scanf("%d",&x);
-                x--;
-                add_edge(i, n+x, 1);
-            }
+            int u,v,c;
+            cin>>u>>v>>c;
+            add_edge(u, v, c);
         }
         cout<<max_flow(s,t)<<endl;
     }
