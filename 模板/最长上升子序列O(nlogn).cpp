@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  hdu 5773
-//
-//  Created by apple on 16/8/1.
-//  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
-//
-
 #include <iostream>
 #include <cstdio>
 using namespace std;
@@ -38,8 +30,4 @@ int DP(int n){
         }
     }
     return len;
-}
-int main() {
-    
-    return 0;
 }
