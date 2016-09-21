@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  hdu 5775
-//
-//  Created by apple on 16/7/31.
-//  Copyright (c) 2016年 Mr.Thirteen. All rights reserved.
-//
-
 #include <iostream>
 #include <cstdio>
 #include <cmath>
