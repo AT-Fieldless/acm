@@ -1,8 +1,3 @@
-//#####################
-//Author:fraud
-//Blog: http://www.cnblogs.com/fraud/
-//#####################
-//#pragma comment(linker, "/STACK:102400000,102400000")
 #include <iostream>
 #include <sstream>
 #include <ios>
